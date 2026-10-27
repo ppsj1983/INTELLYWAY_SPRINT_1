@@ -102,6 +102,38 @@ Nesta etapa vamos combinar datasets públicos traduzidos, exemplos próprios e e
 ```
 - 📌 Camada 3: ataques sintéticos: Utilizaremos IA Generativa poderá auxiliar na preparação de diferentes variações.
 
+### 📊 Proposta conceitual de Estrutura de Detecção (prompt injections)
+
+O desenvolvimento do motor de detecção será estruturado em três níveis.
+
+- 📌 Nível 1: Baseline Baseada em Regras (Regex)
+
+• Abordagem: Implementação de um fluxo de normalização textual para o português do Brasil (PT-BR), seguido da aplicação de expressões regulares (Regex) para a identificação de padrões e termos suspeitos.
+• Objetivo: Funcionar como o primeiro benchmark do projeto. Embora não represente a solução final devido à sua rigidez, estabelecerá a capacidade mínima de deteção do sistema.
+
+- 📌 Nível 2: Baseline Estatística (TF-IDF)
+
+• Abordagem: Criação de um pipeline clássico de Processamento de Linguagem Natural (PLN): extração de características via TF-IDF, seguida pelo treino de um classificador supervisionado tradicional para calcular a probabilidade de ataque.
+• Objetivo: Servir como um elo comparativo intermédio, permitindo quantificar com precisão o valor acrescentado e a evolução do modelo de aprendizagem profunda (Deep Learning) face aos métodos estatísticos tradicionais.
+
+- 📌 Nível 3: Modelo de Aprendizagem Profunda (Deep Learning)
+
+• Abordagem: Utilização do modelo pré-treinado de última geração protectai/deberta-v3-base-prompt-injection-v2. Numa fase posterior, o modelo será adaptado especificamente para o contexto de PT-BR através de fine-tuning, recorrendo a técnicas de eficiência paramétrica como LoRA (Low-Rank Adaptation).
+• Objetivo: Constituir o estado da arte do motor, maximizando a precisão na deteção de injeções de prompt (prompt injections).
+
+
+
+
+### 📊 Matriz de Comparação dos Modelos
+
+A tabela abaixo detalha a configuração técnica e o propósito de cada iteração dentro do fluxo experimental:
+
+| Fase | Abordagem Técnica | Inputs / Pré-processamento | Papel no Projeto |
+| :--- | :--- | :--- | :--- |
+| **1. Regex** | Expressões Regulares estruturadas | Normalização textual básica (PT-BR) | **Baseline 1:** Estabelece o limiar mínimo de segurança e a taxa base de deteção. |
+| **2. TF-IDF** | Matriz de frequência + Classificador Supervisionado | Tokenização tradicional de PLN | **Baseline 2:** Quantifica o ganho obtido por métodos estatísticos clássicos. |
+| **3. DeBERTa v2** | `protectai/deberta-v3-base-prompt-injection-v2` | Tokenizador nativo do modelo | **Modelo Base:** Demonstra o salto de desempenho através de *Deep Learning* (*zero-shot*). |
+| **4. DeBERTa + LoRA** | Fine-tuning com Low-Rank Adaptation (LoRA) | Dataset especializado em PT-BR | **Modelo Final:** Estado da arte do motor, otimizado para as nuances do português. |
 
 ```bash
     A [Entrada de Conteúdo] --> B [Normalização/OCR]
