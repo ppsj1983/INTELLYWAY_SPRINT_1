@@ -24,30 +24,35 @@
  
 ## 👩🏻‍💻 Sprint 1, estruturação da base do projeto, focando na compreensão do problema e das ameaças, no planejamento do dataset em PT-BR, na definição da arquitetura do serviço e na escolha de quais User Stories
 
-## 👩🏻‍💻 Contexto de Pesquisa.
-A ONU alertou, segundo a BBC (Jun, 2026), que um novo evento do fenômeno climático natural El Niño pode iniciar em breve, elevando as temperaturas em um mundo já pressionado pelas mudanças climáticas. Outras fontes também indicam condições favoráveis para a ocorrência do fenômeno El Niño; segundo Conexaosafra (Jun, 2026), o status atual é de “El Niño Watch”, utilizado quando existem condições propícias para o desenvolvimento desse fenômeno. A possibilidade de formação do El Niño entre maio e julho de 2026 é de 82%. Para o intervalo de dezembro de 2026 a fevereiro de 2027, essa chance de persistência sobe para 96%. 
+## 👩🏻‍💻 Visão do projeto: Serviço Inteligente de Detecção e Prevenção de Prompt Injection
+Serviço independente de segurança de IA destinado à identificação de tentativas de *prompt injection*, com foco prioritário em conteúdos escritos em Português do Brasil.
+A solução será posicionada como uma camada de proteção entre conteúdos potencialmente não confiáveis e aplicações baseadas em IA.
+O objetivo é permitir que sistemas consumidores submetam textos ou conteúdos convertidos em texto para análise e recebam uma decisão estruturada:
 
-O fenômeno El Niño se caracteriza pelo aquecimento das águas do oceano Pacífico, enquanto o resfriamento das águas desse mesmo oceano caracteriza o fenômeno La Niña, conforme informações do INPE - Instituto Nacional de Pesquisas Espaciais (Out, 2024). Tanto o El Niño quanto a La Niña fazem parte de um fenômeno interligado (atmosférico-oceânico) que ocorre no oceano Pacífico Equatorial (e na atmosfera ao seu redor), denominado Oscilação Sul do El Niño (ENOS). A fase El Niño desse fenômeno acoplado ENOS se refere a situações em que o oceano Pacífico Equatorial está mais aquecido do que a média histórica (climatológica), enquanto a fase La Niña se refere à situação oposta, ou seja, quando o oceano Pacífico Equatorial está mais frio do que a média histórica. A variação na temperatura do oceano Pacífico Equatorial provoca efeitos globais nos padrões de circulação atmosférica, transporte de umidade, temperatura e precipitação.
+- 📌ALLOW: conteúdo considerado suficientemente seguro;
+- 📌REVIEW: conteúdo ambíguo ou de risco intermediário;
+- 📌BLOCK: forte indicação de tentativa de Prompt Injection.
 
-As variações de temperatura do oceano Pacífico influenciam diretamente o clima brasileiro, especialmente os ciclos de El Niño e La Niña, de acordo com Globo Rural (Out, 2028). No Brasil, os efeitos são razoavelmente conhecidos e variam dependendo da região. Os impactos não são exatamente os mesmos a cada ano devido aos fatores que causam a variabilidade climática. Em anos em que o El Niño está ativo, as temperaturas tendem a aumentar no inverno, e o clima pode até se assemelhar ao do verão em algumas ocasiões. As maiores mudanças nas chuvas ocorrem no Rio Grande do Sul (Região Sul), onde as precipitações aumentam: "O inverno gaúcho já é normalmente úmido. Com o El Niño, isso se intensifica". No Nordeste, a situação é diferente. "Durante o verão, o El Niño provoca seca. No inverno, a falta de chuvas já é comum, mas, se não chover no verão, as colheitas de grãos são prejudicadas".
-
-Por outro lado, a La Niña torna o clima no Rio Grande do Sul mais seco, o que é favorável para o cultivo de trigo. De acordo com o meteorologista, as condições para o cultivo desse cereal podem ser até melhores do que em anos neutros, já que, além de haver um pouco menos de chuva, as ondas de frio ocorrem com mais frequência. A diminuição da temperatura não costuma ser drástica a ponto de causar geadas. Na região Sul, assim como no litoral de São Paulo e do Rio de Janeiro, as temperaturas geralmente caem sob a influência da La Niña. "Tanto as mínimas quanto as máximas ficam mais baixas", explica Celso. No entanto, em muitas regiões produtoras do interior do Sudeste e do Centro-Oeste, os anos de La Niña apresentam uma maior amplitude térmica: tardes quentes, mas noites e madrugadas mais frias do que a média. "Isso ocorre porque a La Niña torna o clima de outono e inverno ainda mais seco no interior do país. Inclusive, a seca que experimentamos no primeiro semestre foi um resquício de sua última atuação".
-- ...
-<p align="center">
-<img width="785" height="480" alt="Image" src="https://github.com/user-attachments/assets/2b081288-cead-489a-8ddc-b60f85c65ff5" /></a>
-</p>
 ---
 
 ## 🎯 Objetivo
 
 Este trabalho tem como objetivo:
 
-- 📌 Criar estrutura de dados armazenamento de informações climaticas históricas
-- 📌 Processar informações de clima e condições climaticas
-- 📌 Aplicar conceitos de machine learning para previsão de chuvas e identificação de áreas criticas expostas a eventos climaticos
-- 📌 Análise de Dados
-- 📌 Apresentações Graficas e Mapas
+Desenvolver um *prompt injection PT-BR*, independente e consumível por uma API, capaz de analisar conteúdo potencialmente não confiável e retornar uma decisão de segurança baseada no risco identificado.
+A arquitetura será desacoplada do sistema consumidor, portanto não dependerá do código, banco ou infraestrutura do EvaGPT.
 
+## 🎯 Objetivo Específicos
+
+O projeto terá os seguintes objetivos:
+- 📌construir um dataset especializado em ataques e conteúdos legítimos em PT-BR;
+- 📌treinar e comparar um classificador profundo;
+- 📌produzir um risk_score entre 0 e 1;
+- 📌transformar o score em ALLOW / REVIEW / BLOCK;
+- 📌disponibilizar a classificação por API;
+- 📌fornecer um portal administrativo;
+- 📌suportar imagem e PDF digitalizado por OCR;
+- 📌avaliar precision, recall, F1-score, AUC e falsos positivos;
 ---
 
 ## 🧠 Fontes Históricas de Dados Climatológicos
@@ -58,20 +63,15 @@ Neste trabalho utilizamos duas fontes principais de dados, sendo
 
 <a href="https://www.cpc.ncep.noaa.gov/">NOAA Climate Prediction Center</a>: Monitoramento e medições mensais da temperatura do oceano Pacífico.
 ```bash
-📂 Global Solution 1º Semestre 2026
-│
-├── 📂 Dados INMET
-│   ├── 📂 DADOS CONSOLIDADOS BRUTOS (Informações de estações metereologicas do Brasil, dados desde 2000, aproximadamente 170 mil registros armazenados)
-│   │   ├── 📂 tab: DADOS_CLIMA_GS_2026_S1 
-│   ├── 📂 DADOS TRABALHADOS (limpeza de registros duplicados, valores nulos ou outliers)
-│   |   ├── 📂 tab: HISTORICO_CHUVA
-│   |   ├── 📂 tab: HISTORICO_TEMPERATURA
-│   |   ├── 📂 tab: HISTORICO_UMIDADE
-│   |   ├── 📂 tab: HISTORICO_VENTO
-│   └── 📂 CADASTRO DE ESTAÇÕES METEREOLOGICAS (Informações de todas as estações metereologicas ativas, posição geografica, altitude e distancia para a faixa do Equador)
-│   |   ├── 📂 tab: DF_CADASTRO_ESTACOES
-├── 📂 Dados NOAA (Monitoramento e medições mensais da temperatura do oceano Pacífico)
-│   ├── 📂 tab: DADOS_NOAA
+    A [Entrada de Conteúdo] --> B [Normalização/OCR]
+    B --> C [Detecção]
+    C --> D [Risk Score]
+    D --> E {ALLOW / REVIEW / BLOCK}
+    E --> F [Auditoria]
+    F --> G [Avaliação]
+    G --> H [Feedback]
+    H --> I [Retreino]
+    I --> A
 ```
 ## 🧠 Tabelas e Banco de Dados
 ---
