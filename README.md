@@ -55,13 +55,54 @@ O projeto terá os seguintes objetivos:
 - 📌avaliar precision, recall, F1-score, AUC e falsos positivos;
 ---
 
-## 🧠 Fontes Históricas de Dados Climatológicos
+## 🧠Classificação do tipo de ameaça
 
-Neste trabalho utilizamos duas fontes principais de dados, sendo
+Todo conteúdo analisado é tratado como dado potencialmente não confiável. Entre os ativos a proteger estão prompt base e políticas do agente, dados privados recuperados por RAG, contexto da conversa, informações de sistemas conectados, permissões de ferramentas e integridade das decisões executadas pelo agente. 
 
-<a href="https://bdmep.inmet.gov.br/">Banco de Dados Meteorológicos do INMET </a>:  Cadastro de estações meteorológicas com localização geográfica e histórico de dados climatológicos desde o ano 2000.
+*Taxonomia inicial*
 
-<a href="https://www.cpc.ncep.noaa.gov/">NOAA Climate Prediction Center</a>: Monitoramento e medições mensais da temperatura do oceano Pacífico.
+A taxonomia sugerida no documento de User Stories inclui, entre outras categorias, conforme imagem a seguir:
+
+<p align="center">
+<img width="600" height="470" alt="Image" src="https://github.com/user-attachments/assets/92c60691-9ce4-4260-b611-06370ef5e80b" />
+</p>
+
+## 🧠 Escolha de User Story
+
+Nesta etapa, selecionamos todas as *User Stories do P0 como núcleo do projeto*.
+Épico A: Motor
+P0
+- 📌 US-MOT-01: Dataset PT-BR
+- 📌 US-MOT-02: Treinamento do modelo
+- 📌 US-MOT-03: Avaliação e definição de limiares
+- 📌 US-MOT-04: Imagem/PDF + OCR
+- 📌 US-API-01: análise;
+- 📌 US-API-02: validação e erros;
+- 📌 US-ADM-02: dashboard;
+- 📌 US-ADM-03: histórico;
+- 📌 US-ADM-04: avaliação LLM + revisão humana;
+- 📌 US-ADM-05: exportação de dados rotulados.
+
+## 🧠 Estratégia do dataset PT-BR
+
+Nesta etapa vamos combinar datasets públicos traduzidos, exemplos próprios e exemplos sintéticos revisados. Também criação de estrutura para treino, validação e teste, sem repetição de exemplos.
+
+- 📌 Camada 1: dados públicos: Como ponto inicial, utilizaremos dataset deepset/prompt-injections como possível fonte pública. 
+
+- 📌 Camada 2: exemplos originalmente escritos em PT-BR: Tambem trabalharemos na criar de exemplos específicos do contexto brasileiro envolvendo:
+```bash
+    atendimento
+    suporte técnico
+    documentos
+    procedimentos
+    e-mails empresariais
+    RAG
+    assistentes virtuais
+    automações
+```
+- 📌 Camada 3: ataques sintéticos: Utilizaremos IA Generativa poderá auxiliar na preparação de diferentes variações.
+
+
 ```bash
     A [Entrada de Conteúdo] --> B [Normalização/OCR]
     B --> C [Detecção]
