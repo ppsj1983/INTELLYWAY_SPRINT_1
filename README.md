@@ -137,68 +137,46 @@ A tabela abaixo detalha a configuração técnica e o propósito de cada iteraç
 
 ## 🏗️ Arquitetura do Sistema e Fluxo de Dados
 
-O diagrama abaixo ilustra o ciclo de vida completo de uma requisição no motor de deteção, desde a entrada do consumidor até à geração de dados para retreino.
+## 📐 Arquitetura Simplificada do Sistema
+
+O diagrama abaixo apresenta o fluxo de dados unificado, cobrindo desde a entrada (texto ou documentos digitalizados) até a geração do dataset de melhoria contínua.
 
 ```mermaid
 graph TD
-    %% Nós Principais
-    Consumidor([👤 Consumidor]) --> API[⚡ API Gateway / FastAPI]
-    
-    %% Pré-processamento
-    API --> PreProc[⚙️ Pré-processamento]
-    subgraph PreProc [⚙️ Pré-processamento]
-        direction TB
-        p1[• Normalização PT-BR]
-        p2[• Validação UTF-8]
-        p3[• Segmentação de textos longos]
-        p4[• Deteção da origem]
-    end
-    
-    %% Camada de Deteção
-    PreProc --> Detec[🔍 Camada de Deteção]
-    subgraph Detec [🔍 Camada de Deteção]
-        direction TB
-        d1[• Regras / Regex]
-        d2[• Modelo / Deep Learning]
-        d3[• Cálculo do risk_score]
-    end
-    
-    %% Tomada de Decisão
-    Detec --> Engine{🧠 Decision Engine}
-    Engine -->|risk_score| Action[ALLOW / REVIEW / BLOCK]
-    
-    %% Ciclo de Dados e Operação
-    Action --> Persist[💾 Persistência dos Eventos]
-    Persist --> Portal[🖥️ Portal Administrativo]
-    Portal --> Review[📊 Avaliação LLM Offline + Revisão Humana]
-    Review --> Export[📥 Exportação CSV/JSON]
-    Export --> Retrain[🔄 Dataset de Retreino]
-    
-    %% Estilização Básica (Opcional para contraste no GitHub)
-    style Consumidor fill:#f9f,stroke:#333,stroke-width:2px
-    style Engine fill:#bbf,stroke:#333,stroke-width:2px
+    %% Entradas
+    Txt([👤 Consumidor: Texto]) --> API[⚡ API Gateway / FastAPI]
+    Doc([🖼️ Imagem / PDF]) --> OCR[👁️ Pré-processamento + OCR]
+    OCR -->|Texto Extraído| API
+
+    %% Pipeline Interno
+    API --> Pre[⚙️ Pré-processamento]
+    note1[Normalização, UTF-8, Contexto] -.- Pre
+
+    Pre --> Det[🔍 Camada de Deteção]
+    note2[Regras + Modelo -> Risk Score] -.- Det
+
+    %% Decisão e Fluxo de Saída
+    Det --> Dec{🧠 Decision Engine}
+    Dec -->|ALLOW / REVIEW / BLOCK| Log[💾 Persistência de Eventos]
+
+    %% Ciclo de Retreino
+    Log --> Portal[🖥️ Portal Admin & Revisão Humana/LLM]
+    Portal --> Retrain[🔄 Dataset de Retreino]
+
+    %% Estilos para clareza visual
+    style Txt fill:#d4edda,stroke:#28a745
+    style Doc fill:#fff3cd,stroke:#ffc107
+    style Dec fill:#cce5ff,stroke:#004085
+    style Retrain fill:#f8d7da,stroke:#721c24
 ```
 
-### 🖼️ Fluxo de Suporte para Imagens e PDFs Digitalizados
+### 🔹 Componentes Principais
 
-Para documentos que não estão em formato de texto nativo, o sistema adota um fluxo de ingestão prévio com OCR antes de submeter os dados ao motor principal:
+*   **Ingestão Dupla:** Suporta strings de texto direto ou arquivos de imagem/PDF convertidos automaticamente via OCR.
+*   **Pipeline de Borda:** O texto é normalizado e avaliado de forma híbrida (regras estáticas + IA) para gerar o `risk_score`.
+*   **Políticas de Ação:** O *Decision Engine* bloqueia, aprova ou envia a requisição para análise com base no score.
+*   **Loop de Feedback:** Os eventos geram relatórios para revisão assíncrona, criando a base para o retreino periódico dos modelos.
 
-```mermaid
-graph LR
-    Doc[🖼️ Imagem / PDF Digitalizado] --> Pre[⚙️ Pré-processamento de Imagem]
-    Pre --> OCR[👁️ Camada OCR]
-    OCR --> Text[📝 Extração de Texto]
-    Text -->|Input Convertido| Motor[🚀 Motor de Deteção Principal]
-    
-    style Doc fill:#ffd27f,stroke:#333
-    style Motor fill:#85e3b3,stroke:#333,stroke-width:2px
-```
-
-### 📋 Detalhes das Camadas
-
-1. **Pré-processamento Textual:** Garante a higienização dos dados de entrada, tratando encoding e dividindo inputs volumosos para evitar estouro de contexto nos modelos de IA.
-2. **Decision Engine:** Atua como o orquestrador de políticas de segurança. Conforme o valor ponderado do `risk_score`, a requisição é imediatamente liberada (**ALLOW**), enviada para quarentena (**REVIEW**) ou bloqueada na borda (**BLOCK**).
-3. **Ciclo de Feedback (Múltiplas Camadas):** Os logs persistem para auditoria no portal, passam por uma validação assíncrona (LLM juiz + analista humano) e alimentam diretamente o pipeline de melhoria contínua do modelo através de novos datasets.
 
 
 
