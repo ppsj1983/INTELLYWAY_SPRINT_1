@@ -135,6 +135,74 @@ A tabela abaixo detalha a configuração técnica e o propósito de cada iteraç
 | **3. DeBERTa v2** | `protectai/deberta-v3-base-prompt-injection-v2` | Tokenizador nativo do modelo | **Modelo Base:** Demonstra o salto de desempenho através de *Deep Learning* (*zero-shot*). |
 | **4. DeBERTa + LoRA** | Fine-tuning com Low-Rank Adaptation (LoRA) | Dataset especializado em PT-BR | **Modelo Final:** Estado da arte do motor, otimizado para as nuances do português. |
 
+## 🏗️ Arquitetura do Sistema e Fluxo de Dados
+
+O diagrama abaixo ilustra o ciclo de vida completo de uma requisição no motor de deteção, desde a entrada do consumidor até à geração de dados para retreino.
+
+```mermaid
+graph TD
+    %% Nós Principais
+    Consumidor([👤 Consumidor]) --> API[⚡ API Gateway / FastAPI]
+    
+    %% Pré-processamento
+    API --> PreProc[⚙️ Pré-processamento]
+    subgraph PreProc [⚙️ Pré-processamento]
+        direction TB
+        p1[• Normalização PT-BR]
+        p2[• Validação UTF-8]
+        p3[• Segmentação de textos longos]
+        p4[• Deteção da origem]
+    end
+    
+    %% Camada de Deteção
+    PreProc --> Detec[🔍 Camada de Deteção]
+    subgraph Detec [🔍 Camada de Deteção]
+        direction TB
+        d1[• Regras / Regex]
+        d2[• Modelo / Deep Learning]
+        d3[• Cálculo do risk_score]
+    end
+    
+    %% Tomada de Decisão
+    Detec --> Engine{🧠 Decision Engine}
+    Engine -->|risk_score| Action[ALLOW / REVIEW / BLOCK]
+    
+    %% Ciclo de Dados e Operação
+    Action --> Persist[💾 Persistência dos Eventos]
+    Persist --> Portal[🖥️ Portal Administrativo]
+    Portal --> Review[📊 Avaliação LLM Offline + Revisão Humana]
+    Review --> Export[📥 Exportação CSV/JSON]
+    Export --> Retrain[🔄 Dataset de Retreino]
+    
+    %% Estilização Básica (Opcional para contraste no GitHub)
+    style Consumidor fill:#f9f,stroke:#333,stroke-width:2px
+    style Engine fill:#bbf,stroke:#333,stroke-width:2px
+```
+
+### 🖼️ Fluxo de Suporte para Imagens e PDFs Digitalizados
+
+Para documentos que não estão em formato de texto nativo, o sistema adota um fluxo de ingestão prévio com OCR antes de submeter os dados ao motor principal:
+
+```mermaid
+graph LR
+    Doc[🖼️ Imagem / PDF Digitalizado] --> Pre[⚙️ Pré-processamento de Imagem]
+    Pre --> OCR[👁️ Camada OCR]
+    OCR --> Text[📝 Extração de Texto]
+    Text -->|Input Convertido| Motor[🚀 Motor de Deteção Principal]
+    
+    style Doc fill:#ffd27f,stroke:#333
+    style Motor fill:#85e3b3,stroke:#333,stroke-width:2px
+```
+
+### 📋 Detalhes das Camadas
+
+1. **Pré-processamento Textual:** Garante a higienização dos dados de entrada, tratando encoding e dividindo inputs volumosos para evitar estouro de contexto nos modelos de IA.
+2. **Decision Engine:** Atua como o orquestrador de políticas de segurança. Conforme o valor ponderado do `risk_score`, a requisição é imediatamente liberada (**ALLOW**), enviada para quarentena (**REVIEW**) ou bloqueada na borda (**BLOCK**).
+3. **Ciclo de Feedback (Múltiplas Camadas):** Os logs persistem para auditoria no portal, passam por uma validação assíncrona (LLM juiz + analista humano) e alimentam diretamente o pipeline de melhoria contínua do modelo através de novos datasets.
+
+
+
+
 ```bash
     A [Entrada de Conteúdo] --> B [Normalização/OCR]
     B --> C [Detecção]
