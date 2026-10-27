@@ -137,9 +137,7 @@ A tabela abaixo detalha a configuração técnica e o propósito de cada iteraç
 
 ## 🏗️ Arquitetura do Sistema e Fluxo de Dados
 
-## 📐 Arquitetura Simplificada do Sistema
-
-O diagrama abaixo apresenta o fluxo de dados unificado, cobrindo desde a entrada (texto ou documentos digitalizados) até a geração do dataset de melhoria contínua.
+O diagrama abaixo apresenta o fluxo de dados, considerando a entrada dos dados (texto ou documentos digitalizados) até a geração do dataset com a classificação e componentes analisados.
 
 ```mermaid
 graph TD
@@ -178,6 +176,27 @@ graph TD
 *   **Loop de Feedback:** Os eventos geram relatórios para revisão assíncrona, criando a base para o retreino periódico dos modelos.
 
 
+## 🛠️ Especificação de Arquitetura (Tech Stack)
+
+A escolha dos componentes técnicos prioriza a integração nativa com o ecossistema de Inteligência Artificial e a adoção de tecnologias estritamente *open source*.
+
+### 🧠 Backend & Machine Learning (Python)
+*   **API:** `FastAPI`.
+*   **ML Clássico & Baselines:** `scikit-learn`.
+*   **Deep Learning & NLP:** `PyTorch` + `Hugging Face Transformers`.
+*   **Otimização:** `PEFT` / `LoRA` (*fine-tuning*).
+
+### 👁️ Camada OCR (Open Source)
+*   **Motor Principal:** `PaddleOCR`.
+
+### 💾 Persistência de Dados
+*   **Banco de Dados:** `Banco de Dados Oracle FIAP`
+*   **Esquema de Eventos (Histórico do Portal):**
+    Cada requisição persistirá os seguintes metadados para auditoria e retreino:
+    `trace_id` | `timestamp` | `texto_analisado` | `source_type` | `decisao` | `score` | `modelo` | `latencia` | `avaliacao_llm` | `revisao_humana` | `rotulo_final`
+
+### 🖥️ Front-end
+*   **Interface (Portal Admin):** `React` (Seguindo os critérios de aceite da *Definition of Done* do projeto).
 
 
 
