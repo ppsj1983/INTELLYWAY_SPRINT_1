@@ -198,6 +198,65 @@ A escolha dos componentes técnicos prioriza a integração nativa com o ecossis
 ### 🖥️ Front-end
 *   **Interface (Portal Admin):** `React` (Seguindo os critérios de aceite da *Definition of Done* do projeto).
 
+## 🖥️ API de Análise de Conteúdo
+
+Esta API é responsável por analisar textos recebidos através de diferentes fontes e determinar se representam algum tipo de risco ou ataque.
+
+## Contrato Inicial (v1)
+
+### Endpoint
+
+* **Rota:** `/v1/analyze`
+* **Método:** `POST`
+* **Content-Type:** `application/json`
+
+### Requisição (Request)
+
+**Payload:**
+
+```json
+{
+  "text": "conteúdo a ser analisado",
+  "source_type": "EMAIL",
+  "language": "pt-BR",
+  "metadata": {
+    "conversation_id": "conv-123"
+  }
+}
+```
+
+**Campos:**
+* `text` (String): Conteúdo textual que será submetido à análise.
+* `source_type` (String): Origem do conteúdo (ex: `EMAIL`).
+* `language` (String): Idioma do texto (ex: `pt-BR`).
+* `metadata` (Object): Objeto opcional contendo dados de contexto, como `conversation_id`.
+
+---
+
+### Resposta (Response)
+
+**Payload:**
+
+```json
+{
+  "decision": "BLOCK",
+  "risk_score": 0.94,
+  "attack_types": [
+    "PI_DIRECT_OVERRIDE"
+  ],
+  "reason_codes": [
+    "HIGH_RISK_SCORE"
+  ],
+  "trace_id": "trace-abc"
+}
+```
+
+**Campos:**
+* `decision` (String): Decisão final da análise (ex: `ALLOW`, `BLOCK`).
+* `risk_score` (Float): Pontuação de risco calculada, variando de 0.0 a 1.0.
+* `attack_types` (Array de Strings): *Opcional*. Tipos de ataque identificados.
+* `reason_codes` (Array de Strings): *Opcional*. Códigos de motivo que justificam a decisão.
+* `trace_id` (String): Identificador único da transação para fins de rastreabilidade.
 
 
 ```bash
@@ -211,142 +270,3 @@ A escolha dos componentes técnicos prioriza a integração nativa com o ecossis
     H --> I [Retreino]
     I --> A
 ```
-## 🧠 Tabelas e Banco de Dados
----
-
-Imagem abaixo demonstra a estrutura do banco de dados, neste projeto, utilizamos 6 tabelas
-<p align="center">
-<img width="318" height="266" alt="Image" src="https://github.com/user-attachments/assets/50838172-38b4-49d8-b5fb-3282a252fb33" /></a>
-</p>
-
-*DADOS_CLIMA_GS_206_S1:* Estrutura contendo dados climáticos brutos extraídos diretamente das bases do INMET. Serve como fonte primária para as análises de monitoramento.
-
-<p align="center">
-<img width="753" height="510" alt="Image" src="https://github.com/user-attachments/assets/6dd46d1a-4be1-40d5-b001-818982be1484" /></a>
-</p>
-
-*DF_CADASTRO_ESTACOES:* Catálogo estruturado de 597 estações meteorológicas de medição. Inclui metadados como posição geográfica, altitude e distância em relação à Linha do Equador.
-
-<p align="center">
-<img width="722" height="292" alt="Image" src="https://github.com/user-attachments/assets/fdf7b7a3-376b-4462-8c0a-487f97f38b3c" /></a>
-</p>
-
-<p align="center">
-<img width="1295" height="555" alt="Image" src="https://github.com/user-attachments/assets/d7df3923-8161-48aa-be53-6944dc8a4525" /></a>
-</p>
-
-*DADOS_NOAA:* Consolidação das temperaturas da superfície do oceano Pacífico, utilizada para a identificação e classificação de períodos e ciclos climáticos (El Niño, La Niña e Neutro).
-
-<p align="center">
-<img width="769" height="263" alt="Image" src="https://github.com/user-attachments/assets/87ea4157-f3cf-4a95-b726-9c8b2bac5177" /></a>
-</p>
-
-*HISTORICO_CHUVA:* Série histórica de precipitação climática (em milímetros), com agregação mensal e estruturada pela coluna ANO_MES.
-
-*HISTORICO_TEMPERATURA:* Série histórica de temperaturas, apresentada em médias mensais, categorizada e identificada pela coluna ANO_MES.
-
-*HISTORICO_UMIDADE:* Série histórica de Umidade Relativa do Ar, apresentada em médias mensais e estruturada pela coluna ANO_MES.
-
-*HISTORICO_VENTOS:* Série histórica de medições de vento, com visão de média mensal e estruturada pela coluna ANO_MES.
-
-<p align="center">
-<img width="254" height="428" alt="Image" src="https://github.com/user-attachments/assets/24ddeb23-cb5c-47f3-8906-9227ecda07e8" /></a>
-</p>
-
-
-## 🧠 Processamento de Informações
----
-No arquivo *DADOS_INMET_NOAA.ipynb* realizamos todo o processamento das informações e atualização das tabelas, durante cada etapa, inserimos testes para monitoramento de cada passo, conforme demonstrado a seguir
-
-*DADOS_CLIMA_GS_206_S1:* Processamento de arquivos CSV's extraidos de <a href="https://bdmep.inmet.gov.br/">Banco de Dados Meteorológicos do INMET </a>, nesta etapa foram processados 10046
-
-<p align="center">
-<img width="766" height="673" alt="Image" src="https://github.com/user-attachments/assets/e3026f43-d615-45bf-90d5-a082cb90e71d" /></a>
-</p>
-
-Após processamento dos CSV's, criamos uma tabela auxiliar para armazenar todas as informações climatologicas, com resumos obtidos a partir da tabela *DADOS_CLIMA_GS_206_S1*
-<p align="center">
-<img width="850" height="784" alt="Image" src="https://github.com/user-attachments/assets/79e7c99f-0800-4c21-a956-7c6cf85cfef9" /></a>
-</p>
-
-*DF_CADASTRO_ESTACOES:* Tambem inserimos uma etapa para processamento das estações, gerando um resumo com registros cadastrais de todos os terminais metereologicos.
-<p align="center">
-<img width="996" height="631" alt="Image" src="https://github.com/user-attachments/assets/46b21e77-98c7-4aa4-9242-a842908d3085" /></a>
-</p>
-Etapa de carga da tabela DF_CADASTRO_ESTACOES no servidor FIAP
-<p align="center">
-<img width="861" height="691" alt="Image" src="https://github.com/user-attachments/assets/315e3629-0027-4cfc-b93a-a4782f40555a" /></a>
-</p>
-
-*DADOS_NOAA:* Etapa de importação de dados do site <a href="https://www.cpc.ncep.noaa.gov/">NOAA Climate Prediction Center</a>, processamento das informações e armazenamento no servidor FIAP
-<p align="center">
-<img width="785" height="482" alt="Image" src="https://github.com/user-attachments/assets/c3b912c2-7206-4c98-9683-d7f1410f3061" /></a>
-</p>
-
-As tabelas *HISTORICO_CHUVA, HISTORICO_TEMPERATURA, HISTORICO_UMIDADE e HISTORICO_VENTOS*, tambem são processadas individualmentes, reduzindo a quantidade de registros para utilização nos modelos preditivos
-<p align="center">
-<img width="797" height="640" alt="Image" src="https://github.com/user-attachments/assets/588c069e-95fb-4c96-b148-8bbebd15c6f7" /></a>
-</p>
-
-## 🧠 Algoritmo de Machine Learning
-
-Utilizamos o algoritmo Random Forest Classifier para a realização de previsões climatológicas. Este método foi aplicado para calcular as previsões climáticas considerando variáveis contínuas (Volume de Chuvas, Temperatura, Velocidade do Vento e Humidade) e, complementarmente, para a modelação binomial da probabilidade de ocorrência de chuva para um determinado mês.
-
-<p align="center">
-<img width="1074" height="787" alt="Image" src="https://github.com/user-attachments/assets/82b656f4-c084-4f37-88c3-ea366f0615a9" /></a>
-</p>
-
-## 🧠 Painel Streamlit
-
-No painel Streamlit foi adicionando um menu para seleção dos parametros simulação climatologica 
-
-<p align="center">
-<img width="948" height="440" alt="Image" src="https://github.com/user-attachments/assets/9c1eef19-142e-4d12-bdb6-3e62dca43b0f" /></a>
-</p>
-
-
-Tambem adicionamos uma função para exportação de mapas html
-<p align="center">
-<img width="1149" height="689" alt="Image" src="https://github.com/user-attachments/assets/c593f238-9d75-4764-988e-13048936e898" /></a>
-</p>
-
-
-
-## 🧠 Resultados Obtidos 
-
-No teste de validação, a taxa de acerto global do algoritmo fixou-se em 77,75% para a previsão do cenário binomial de chuva, comprovando a robustez do modelo preditivo adaptado
-
-<p align="center">
-<img width="1163" height="257" alt="Image" src="https://github.com/user-attachments/assets/fbcdbed2-582a-42c8-963b-4342f30fc88a" /></a>
-</p>
-
-A análise climática baseada nos dados do El Niño para junho confirma que a região Sul do Brasil concentra os maiores índices pluviométricos. Importa destacar que as projeções do algoritmo estão alinhadas e convergem com os comportamentos históricos de precipitação locais.
-
-<p align="center">
-<img width="1377" height="669" alt="Image" src="https://github.com/user-attachments/assets/83657562-928d-4de3-8229-8bdcafe06809" /></a>
-</p>
-
-Através da análise da distribuição espacial do mapa, evidencia-se uma elevada concentração pluviométrica distribuída por todos os estados da região Sul.
-
-<p align="center">
-<img width="1193" height="876" alt="Image" src="https://github.com/user-attachments/assets/87818c2f-1d79-43a6-8e26-969ac23931e4" /></a>
-</p>
-
-A ferramenta geoespacial permite a análise simultânea de três variáveis preditivas: o volume estimado de precipitação (mm), a temperatura (°C) e a probabilidade percentual de ocorrência de chuva
-
-<p align="center">
-<img width="1413" height="857" alt="Image" src="https://github.com/user-attachments/assets/c989567d-36a7-4c2d-a6b4-855e6f27d8b6" /></a>
-</p>
-
-
-
-
-
-## 📋 Licença
-
-
-https://conexaosafra.com/
-
-https://www.bbc.com/portuguese/resources/idt-54f4e985-a7fb-48b2-8246-f3be0d699402
-
-http://enos.cptec.inpe.br/
