@@ -1,1 +1,214 @@
-# INTELLYWAY_SPRINT_1
+# FIAP - Faculdade de Informática e Administração Paulista
+
+<p align="center">
+<img width="600" height="150" alt="Image" src="https://github.com/user-attachments/assets/5746c27f-0276-4eb3-b7da-6f249578a58d" /></a>
+</p>
+
+<br>
+
+# 🎓 Graduação ON em Inteligência Artificial  
+## 📚  CHALLENGE INTELLIWAY
+
+## 👨‍🎓 Integrantes: 
+- <a href="https://www.linkedin.com/in/paulo-pereira-de-souza-junior-mba-msc-0b497825/">Paulo Pereira de Souza Junior</a>
+
+## 👨‍🎓 Apresentacao: 
+- <a href="https://youtu.be/6IrO9j_jJ9E">Video Apresentação - YOUTUBE</a>
+
+## 👨‍🎓 Git Hub: 
+- <a href="https://github.com/ppsj1983/GS_2026_01">GS 2026 1º Semestre</a>
+
+## 👩🏻‍💻 CO objetivo deste Challenge é desenvolver um serviço de segurança, independente e consumido por API, capaz de detectar tentativas de prompt injection em Português do Brasil e devolver uma decisão clara para o sistema que o consulta
+
+## 👩🏻‍💻 Linha de Pesquisa: Segurança de IA
+ 
+## 👩🏻‍💻 Sprint 1, estruturação da base do projeto, focando na compreensão do problema e das ameaças, no planejamento do dataset em PT-BR, na definição da arquitetura do serviço e na escolha de quais User Stories
+
+## 👩🏻‍💻 Contexto de Pesquisa.
+A ONU alertou, segundo a BBC (Jun, 2026), que um novo evento do fenômeno climático natural El Niño pode iniciar em breve, elevando as temperaturas em um mundo já pressionado pelas mudanças climáticas. Outras fontes também indicam condições favoráveis para a ocorrência do fenômeno El Niño; segundo Conexaosafra (Jun, 2026), o status atual é de “El Niño Watch”, utilizado quando existem condições propícias para o desenvolvimento desse fenômeno. A possibilidade de formação do El Niño entre maio e julho de 2026 é de 82%. Para o intervalo de dezembro de 2026 a fevereiro de 2027, essa chance de persistência sobe para 96%. 
+
+O fenômeno El Niño se caracteriza pelo aquecimento das águas do oceano Pacífico, enquanto o resfriamento das águas desse mesmo oceano caracteriza o fenômeno La Niña, conforme informações do INPE - Instituto Nacional de Pesquisas Espaciais (Out, 2024). Tanto o El Niño quanto a La Niña fazem parte de um fenômeno interligado (atmosférico-oceânico) que ocorre no oceano Pacífico Equatorial (e na atmosfera ao seu redor), denominado Oscilação Sul do El Niño (ENOS). A fase El Niño desse fenômeno acoplado ENOS se refere a situações em que o oceano Pacífico Equatorial está mais aquecido do que a média histórica (climatológica), enquanto a fase La Niña se refere à situação oposta, ou seja, quando o oceano Pacífico Equatorial está mais frio do que a média histórica. A variação na temperatura do oceano Pacífico Equatorial provoca efeitos globais nos padrões de circulação atmosférica, transporte de umidade, temperatura e precipitação.
+
+As variações de temperatura do oceano Pacífico influenciam diretamente o clima brasileiro, especialmente os ciclos de El Niño e La Niña, de acordo com Globo Rural (Out, 2028). No Brasil, os efeitos são razoavelmente conhecidos e variam dependendo da região. Os impactos não são exatamente os mesmos a cada ano devido aos fatores que causam a variabilidade climática. Em anos em que o El Niño está ativo, as temperaturas tendem a aumentar no inverno, e o clima pode até se assemelhar ao do verão em algumas ocasiões. As maiores mudanças nas chuvas ocorrem no Rio Grande do Sul (Região Sul), onde as precipitações aumentam: "O inverno gaúcho já é normalmente úmido. Com o El Niño, isso se intensifica". No Nordeste, a situação é diferente. "Durante o verão, o El Niño provoca seca. No inverno, a falta de chuvas já é comum, mas, se não chover no verão, as colheitas de grãos são prejudicadas".
+
+Por outro lado, a La Niña torna o clima no Rio Grande do Sul mais seco, o que é favorável para o cultivo de trigo. De acordo com o meteorologista, as condições para o cultivo desse cereal podem ser até melhores do que em anos neutros, já que, além de haver um pouco menos de chuva, as ondas de frio ocorrem com mais frequência. A diminuição da temperatura não costuma ser drástica a ponto de causar geadas. Na região Sul, assim como no litoral de São Paulo e do Rio de Janeiro, as temperaturas geralmente caem sob a influência da La Niña. "Tanto as mínimas quanto as máximas ficam mais baixas", explica Celso. No entanto, em muitas regiões produtoras do interior do Sudeste e do Centro-Oeste, os anos de La Niña apresentam uma maior amplitude térmica: tardes quentes, mas noites e madrugadas mais frias do que a média. "Isso ocorre porque a La Niña torna o clima de outono e inverno ainda mais seco no interior do país. Inclusive, a seca que experimentamos no primeiro semestre foi um resquício de sua última atuação".
+- ...
+<p align="center">
+<img width="785" height="480" alt="Image" src="https://github.com/user-attachments/assets/2b081288-cead-489a-8ddc-b60f85c65ff5" /></a>
+</p>
+---
+
+## 🎯 Objetivo
+
+Este trabalho tem como objetivo:
+
+- 📌 Criar estrutura de dados armazenamento de informações climaticas históricas
+- 📌 Processar informações de clima e condições climaticas
+- 📌 Aplicar conceitos de machine learning para previsão de chuvas e identificação de áreas criticas expostas a eventos climaticos
+- 📌 Análise de Dados
+- 📌 Apresentações Graficas e Mapas
+
+---
+
+## 🧠 Fontes Históricas de Dados Climatológicos
+
+Neste trabalho utilizamos duas fontes principais de dados, sendo
+
+<a href="https://bdmep.inmet.gov.br/">Banco de Dados Meteorológicos do INMET </a>:  Cadastro de estações meteorológicas com localização geográfica e histórico de dados climatológicos desde o ano 2000.
+
+<a href="https://www.cpc.ncep.noaa.gov/">NOAA Climate Prediction Center</a>: Monitoramento e medições mensais da temperatura do oceano Pacífico.
+```bash
+📂 Global Solution 1º Semestre 2026
+│
+├── 📂 Dados INMET
+│   ├── 📂 DADOS CONSOLIDADOS BRUTOS (Informações de estações metereologicas do Brasil, dados desde 2000, aproximadamente 170 mil registros armazenados)
+│   │   ├── 📂 tab: DADOS_CLIMA_GS_2026_S1 
+│   ├── 📂 DADOS TRABALHADOS (limpeza de registros duplicados, valores nulos ou outliers)
+│   |   ├── 📂 tab: HISTORICO_CHUVA
+│   |   ├── 📂 tab: HISTORICO_TEMPERATURA
+│   |   ├── 📂 tab: HISTORICO_UMIDADE
+│   |   ├── 📂 tab: HISTORICO_VENTO
+│   └── 📂 CADASTRO DE ESTAÇÕES METEREOLOGICAS (Informações de todas as estações metereologicas ativas, posição geografica, altitude e distancia para a faixa do Equador)
+│   |   ├── 📂 tab: DF_CADASTRO_ESTACOES
+├── 📂 Dados NOAA (Monitoramento e medições mensais da temperatura do oceano Pacífico)
+│   ├── 📂 tab: DADOS_NOAA
+```
+## 🧠 Tabelas e Banco de Dados
+---
+
+Imagem abaixo demonstra a estrutura do banco de dados, neste projeto, utilizamos 6 tabelas
+<p align="center">
+<img width="318" height="266" alt="Image" src="https://github.com/user-attachments/assets/50838172-38b4-49d8-b5fb-3282a252fb33" /></a>
+</p>
+
+*DADOS_CLIMA_GS_206_S1:* Estrutura contendo dados climáticos brutos extraídos diretamente das bases do INMET. Serve como fonte primária para as análises de monitoramento.
+
+<p align="center">
+<img width="753" height="510" alt="Image" src="https://github.com/user-attachments/assets/6dd46d1a-4be1-40d5-b001-818982be1484" /></a>
+</p>
+
+*DF_CADASTRO_ESTACOES:* Catálogo estruturado de 597 estações meteorológicas de medição. Inclui metadados como posição geográfica, altitude e distância em relação à Linha do Equador.
+
+<p align="center">
+<img width="722" height="292" alt="Image" src="https://github.com/user-attachments/assets/fdf7b7a3-376b-4462-8c0a-487f97f38b3c" /></a>
+</p>
+
+<p align="center">
+<img width="1295" height="555" alt="Image" src="https://github.com/user-attachments/assets/d7df3923-8161-48aa-be53-6944dc8a4525" /></a>
+</p>
+
+*DADOS_NOAA:* Consolidação das temperaturas da superfície do oceano Pacífico, utilizada para a identificação e classificação de períodos e ciclos climáticos (El Niño, La Niña e Neutro).
+
+<p align="center">
+<img width="769" height="263" alt="Image" src="https://github.com/user-attachments/assets/87ea4157-f3cf-4a95-b726-9c8b2bac5177" /></a>
+</p>
+
+*HISTORICO_CHUVA:* Série histórica de precipitação climática (em milímetros), com agregação mensal e estruturada pela coluna ANO_MES.
+
+*HISTORICO_TEMPERATURA:* Série histórica de temperaturas, apresentada em médias mensais, categorizada e identificada pela coluna ANO_MES.
+
+*HISTORICO_UMIDADE:* Série histórica de Umidade Relativa do Ar, apresentada em médias mensais e estruturada pela coluna ANO_MES.
+
+*HISTORICO_VENTOS:* Série histórica de medições de vento, com visão de média mensal e estruturada pela coluna ANO_MES.
+
+<p align="center">
+<img width="254" height="428" alt="Image" src="https://github.com/user-attachments/assets/24ddeb23-cb5c-47f3-8906-9227ecda07e8" /></a>
+</p>
+
+
+## 🧠 Processamento de Informações
+---
+No arquivo *DADOS_INMET_NOAA.ipynb* realizamos todo o processamento das informações e atualização das tabelas, durante cada etapa, inserimos testes para monitoramento de cada passo, conforme demonstrado a seguir
+
+*DADOS_CLIMA_GS_206_S1:* Processamento de arquivos CSV's extraidos de <a href="https://bdmep.inmet.gov.br/">Banco de Dados Meteorológicos do INMET </a>, nesta etapa foram processados 10046
+
+<p align="center">
+<img width="766" height="673" alt="Image" src="https://github.com/user-attachments/assets/e3026f43-d615-45bf-90d5-a082cb90e71d" /></a>
+</p>
+
+Após processamento dos CSV's, criamos uma tabela auxiliar para armazenar todas as informações climatologicas, com resumos obtidos a partir da tabela *DADOS_CLIMA_GS_206_S1*
+<p align="center">
+<img width="850" height="784" alt="Image" src="https://github.com/user-attachments/assets/79e7c99f-0800-4c21-a956-7c6cf85cfef9" /></a>
+</p>
+
+*DF_CADASTRO_ESTACOES:* Tambem inserimos uma etapa para processamento das estações, gerando um resumo com registros cadastrais de todos os terminais metereologicos.
+<p align="center">
+<img width="996" height="631" alt="Image" src="https://github.com/user-attachments/assets/46b21e77-98c7-4aa4-9242-a842908d3085" /></a>
+</p>
+Etapa de carga da tabela DF_CADASTRO_ESTACOES no servidor FIAP
+<p align="center">
+<img width="861" height="691" alt="Image" src="https://github.com/user-attachments/assets/315e3629-0027-4cfc-b93a-a4782f40555a" /></a>
+</p>
+
+*DADOS_NOAA:* Etapa de importação de dados do site <a href="https://www.cpc.ncep.noaa.gov/">NOAA Climate Prediction Center</a>, processamento das informações e armazenamento no servidor FIAP
+<p align="center">
+<img width="785" height="482" alt="Image" src="https://github.com/user-attachments/assets/c3b912c2-7206-4c98-9683-d7f1410f3061" /></a>
+</p>
+
+As tabelas *HISTORICO_CHUVA, HISTORICO_TEMPERATURA, HISTORICO_UMIDADE e HISTORICO_VENTOS*, tambem são processadas individualmentes, reduzindo a quantidade de registros para utilização nos modelos preditivos
+<p align="center">
+<img width="797" height="640" alt="Image" src="https://github.com/user-attachments/assets/588c069e-95fb-4c96-b148-8bbebd15c6f7" /></a>
+</p>
+
+## 🧠 Algoritmo de Machine Learning
+
+Utilizamos o algoritmo Random Forest Classifier para a realização de previsões climatológicas. Este método foi aplicado para calcular as previsões climáticas considerando variáveis contínuas (Volume de Chuvas, Temperatura, Velocidade do Vento e Humidade) e, complementarmente, para a modelação binomial da probabilidade de ocorrência de chuva para um determinado mês.
+
+<p align="center">
+<img width="1074" height="787" alt="Image" src="https://github.com/user-attachments/assets/82b656f4-c084-4f37-88c3-ea366f0615a9" /></a>
+</p>
+
+## 🧠 Painel Streamlit
+
+No painel Streamlit foi adicionando um menu para seleção dos parametros simulação climatologica 
+
+<p align="center">
+<img width="948" height="440" alt="Image" src="https://github.com/user-attachments/assets/9c1eef19-142e-4d12-bdb6-3e62dca43b0f" /></a>
+</p>
+
+
+Tambem adicionamos uma função para exportação de mapas html
+<p align="center">
+<img width="1149" height="689" alt="Image" src="https://github.com/user-attachments/assets/c593f238-9d75-4764-988e-13048936e898" /></a>
+</p>
+
+
+
+## 🧠 Resultados Obtidos 
+
+No teste de validação, a taxa de acerto global do algoritmo fixou-se em 77,75% para a previsão do cenário binomial de chuva, comprovando a robustez do modelo preditivo adaptado
+
+<p align="center">
+<img width="1163" height="257" alt="Image" src="https://github.com/user-attachments/assets/fbcdbed2-582a-42c8-963b-4342f30fc88a" /></a>
+</p>
+
+A análise climática baseada nos dados do El Niño para junho confirma que a região Sul do Brasil concentra os maiores índices pluviométricos. Importa destacar que as projeções do algoritmo estão alinhadas e convergem com os comportamentos históricos de precipitação locais.
+
+<p align="center">
+<img width="1377" height="669" alt="Image" src="https://github.com/user-attachments/assets/83657562-928d-4de3-8229-8bdcafe06809" /></a>
+</p>
+
+Através da análise da distribuição espacial do mapa, evidencia-se uma elevada concentração pluviométrica distribuída por todos os estados da região Sul.
+
+<p align="center">
+<img width="1193" height="876" alt="Image" src="https://github.com/user-attachments/assets/87818c2f-1d79-43a6-8e26-969ac23931e4" /></a>
+</p>
+
+A ferramenta geoespacial permite a análise simultânea de três variáveis preditivas: o volume estimado de precipitação (mm), a temperatura (°C) e a probabilidade percentual de ocorrência de chuva
+
+<p align="center">
+<img width="1413" height="857" alt="Image" src="https://github.com/user-attachments/assets/c989567d-36a7-4c2d-a6b4-855e6f27d8b6" /></a>
+</p>
+
+
+
+
+
+## 📋 Licença
+
+
+https://conexaosafra.com/
+
+https://www.bbc.com/portuguese/resources/idt-54f4e985-a7fb-48b2-8246-f3be0d699402
+
+http://enos.cptec.inpe.br/
