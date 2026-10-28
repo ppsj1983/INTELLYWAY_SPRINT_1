@@ -303,3 +303,32 @@ Métricas utilizadas para monitorar a eficiência da API e o comportamento do tr
 * **Distribuição de Decisões:** Proporção e volume de ações aplicadas (`ALLOW` / `REVIEW` / `BLOCK`).
 * **Métricas por `source_type`:** Divisão do volume e comportamento das análises agrupadas por origem (ex: `EMAIL`).
 * **Métricas por Versão do Modelo:** Comparativo de performance e volumetria entre as diferentes versões do modelo em produção.
+
+  ## ⚖️ Governança, Privacidade e Ciclo de Vida do Modelo
+
+Este projeto adota práticas rígidas de governança de dados e auditoria desde a Sprint 1, cumprindo as exigências do requisito **RNF-GOV-01** para conformidade e rastreabilidade.
+
+### ⚖️ LGPD e Privacidade de Dados
+
+Os textos submetidos à API podem conter dados pessoais e corporativos sensíveis. A nossa política operacional baseia-se nos seguintes pilares:
+
+* **Controle de Acesso:** Permissões estritas baseadas no princípio do menor privilégio para visualização de logs e payloads.
+* **Minimização:** Coleta e processamento estrito dos dados estritamente necessários para a execução da análise de risco.
+* **Retenção de Dados:** Política definida de tempo de descarte para dados brutos, evitando o armazenamento indefinido.
+* **Trilha de Auditoria:** Registo seguro de todas as requisições (quem acessou, quando acessou e qual ação foi tomada) via `trace_id`.
+* **Anonimização e Mascaramento:** Aplicação de técnicas de mascaramento de PII (dados de identificação pessoal) antes do armazenamento de logs.
+* **Tratamento de Áudio (Futuro):** Caso o suporte a voz seja implementado, serão aplicadas políticas específicas de tratamento e descarte de arquivos biométricos de áudio.
+
+---
+
+### 📊 Governança e Rastreabilidade do Modelo
+
+Para garantir a reprodutibilidade dos resultados e facilitar a comparação de performance entre diferentes versões, cada deploy regista obrigatoriamente os seguintes metadados:
+
+* `model_version`: Identificador único da versão do modelo em produção.
+* `dataset_version`: Versão exata do conjunto de dados utilizado para o treino ou fine-tuning.
+* `data_treinamento`: Data em que o ciclo de treino deste modelo foi finalizado.
+* `metricas`: Instantâneo das métricas de validação (Precision, Recall, F1, AUC) homologadas no treino.
+* `threshold_allow`: Limiar numérico configurado para a tomada de decisão automática de `ALLOW`.
+* `threshold_block`: Limiar numérico configurado para a tomada de decisão automática de `BLOCK`.
+
