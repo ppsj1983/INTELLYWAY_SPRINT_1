@@ -332,3 +332,28 @@ Para garantir a reprodutibilidade dos resultados e facilitar a comparação de p
 * `threshold_allow`: Limiar numérico configurado para a tomada de decisão automática de `ALLOW`.
 * `threshold_block`: Limiar numérico configurado para a tomada de decisão automática de `BLOCK`.
 
+## 🚀 Sprint 1: Conclusão
+
+A primeira sprint foi focada na estruturação da base técnica, estratégica e de conformidade do projeto.
+
+### 📋 Entregues da Sprint
+
+#### 🔹 Produto & UX
+* **User Stories:** Definição e priorização do backlog inicial.
+* **Wireframes:** Desenho das interfaces e fluxo de navegação.
+
+#### 🔹 Arquitetura & Integração
+* **Desenho da Arquitetura:** Modelagem da estrutura de sistema e componentes.
+* **Contrato da API:** Especificação inicial dos endpoints e comunicação.
+
+#### 🔹 Dados & IA
+* **Planeamento do Dataset:** Estruturação das fontes e critérios de dados.
+* **Estratégia de Baselines:** Definição das métricas de referência para os modelos.
+* **Protótipo de OCR:** Validação do conceito técnico de reconhecimento de caracteres.
+
+#### 🔹 Segurança & Governação
+* **Levantamento de Ameaças:** Identificação proativa de vulnerabilidades.
+* **Riscos e Governação:** Matriz de mitigação e políticas de conformidade.
+
+---
+
