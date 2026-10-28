@@ -12,12 +12,6 @@
 ## 👨‍🎓 Integrantes: 
 - <a href="https://www.linkedin.com/in/paulo-pereira-de-souza-junior-mba-msc-0b497825/">Paulo Pereira de Souza Junior</a>
 
-## 👨‍🎓 Apresentacao: 
-- <a href="https://youtu.be/6IrO9j_jJ9E">Video Apresentação - YOUTUBE</a>
-
-## 👨‍🎓 Git Hub: 
-- <a href="https://github.com/ppsj1983/GS_2026_01">GS 2026 1º Semestre</a>
-
 ## 👩🏻‍💻 CO objetivo deste Challenge é desenvolver um serviço de segurança, independente e consumido por API, capaz de detectar tentativas de prompt injection em Português do Brasil e devolver uma decisão clara para o sistema que o consulta
 
 ## 👩🏻‍💻 Linha de Pesquisa: Segurança de IA
