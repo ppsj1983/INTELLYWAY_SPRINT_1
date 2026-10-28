@@ -258,6 +258,9 @@ Esta API é responsável por analisar textos recebidos através de diferentes fo
 * `reason_codes` (Array de Strings): *Opcional*. Códigos de motivo que justificam a decisão.
 * `trace_id` (String): Identificador único da transação para fins de rastreabilidade.
 
+## 🖥️ Modelo simplificado (motor de classificação e decisão)
+
+O modelo abaixo apresenta o fluxo simplificado do modelo de análise
 
 ```bash
     A [Entrada de Conteúdo] --> B [Normalização/OCR]
@@ -270,3 +273,33 @@ Esta API é responsável por analisar textos recebidos através de diferentes fo
     H --> I [Retreino]
     I --> A
 ```
+## 🖥️ Métricas de Avaliação e Indicadores Operacionais
+
+O sucesso e o comportamento do modelo são monitorados através de métricas de qualidade de dados (ciência de dados) e indicadores de performance em produção (infraestrutura/operação).
+
+### 📈 Métricas de Avaliação Principal (Requisitos P0)
+
+Estes indicadores medem a assertividade do modelo em prever riscos e ataques:
+
+* **Precision (Precisão):** Proporção de alertas verdadeiros entre todas as classificações positivas.
+* **Recall (Revocação):** Capacidade do modelo de encontrar todos os casos reais de risco.
+* **F1-Score:** Média harmónica entre Precision e Recall para equilíbrio do modelo.
+* **AUC (Area Under the ROC Curve):** Medida de capacidade de distinção global entre classes.
+* **Matriz de Confusão:** Tabela de mapeamento para identificação de Verdadeiros/Falsos Positivos e Negativos.
+* **FPR em Hard Negatives:** Taxa de Falsos Positivos calculada especificamente sobre amostras críticas/ambíguas.
+
+---
+
+### ⚙️ Indicadores Operacionais (Negócio e Infraestrutura)
+
+Métricas utilizadas para monitorar a eficiência da API e o comportamento do tráfego em tempo real:
+
+#### Performance & Latência
+* **Latência Média:** Tempo médio total gasto no processamento de cada requisição.
+* **P50 (Percentil 50):** Tempo limite em que 50% das requisições são respondidas (mediana).
+* **P95 (Percentil 95):** Tempo limite em que 95% das requisições são respondidas (experiência dos utilizadores mais lentos).
+
+#### Distribuição & Volumetria
+* **Distribuição de Decisões:** Proporção e volume de ações aplicadas (`ALLOW` / `REVIEW` / `BLOCK`).
+* **Métricas por `source_type`:** Divisão do volume e comportamento das análises agrupadas por origem (ex: `EMAIL`).
+* **Métricas por Versão do Modelo:** Comparativo de performance e volumetria entre as diferentes versões do modelo em produção.
