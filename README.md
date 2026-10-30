@@ -13,7 +13,7 @@
 - <a href="https://www.linkedin.com/in/paulo-pereira-de-souza-junior-mba-msc-0b497825/">Paulo Pereira de Souza Junior</a>
 
 ## 👨‍🎓 Apresentacao: 
-- <a href="https://youtu.be/VY23rVfZaIM">Video Apresentação - YOUTUBE</a>
+- <a href="https://youtu.be/xR4rtQ4Wquw">Video Apresentação - YOUTUBE</a>
 
 ## 👩🏻‍💻 CO objetivo deste Challenge é desenvolver um serviço de segurança, independente e consumido por API, capaz de detectar tentativas de prompt injection em Português do Brasil e devolver uma decisão clara para o sistema que o consulta
 
